@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+{% block content %}
+
+
+    <div id="content" class="site-content" tabindex="-1">
+        <div class="col-full">
+            <main class="site-main">
+                <ul class="products columns-5">
+                    {% for item in items %}
+                    <li class="product ">
+                        <a href="{{ item.link_kufar }}">
+                            <img style="width: 200px;height: 170px;" src="{{ item.photo.url }}">
+                            <h2 class="woocommerce-loop-product__title">{{ item.name }}</h2>
+
+                            <span class="price">
+                                    <span class="woocommerce-Price-amount amount">
+                                    <bdi>
+                                        <span
+                                                class="woocommerce-Price-currencySymbol">
+                                        </span>ЦЕНА: {{ item.price }} BYN</bdi>
+                                    </span>
+                                </span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </main>
+        </div>
+    </div>
+
+<footer >
+  <p>جينز عالم كازاخ «🌍埃科有限公司🌍»</p>
+</footer>
+
+
+{% endblock content %}
