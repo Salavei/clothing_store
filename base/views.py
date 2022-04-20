@@ -5,6 +5,7 @@ from .models import Items
 def home(request):
     items = Items.objects.all()
     context = {'items': items}
+
     return render(request, 'base/home.html', context)
 
 
