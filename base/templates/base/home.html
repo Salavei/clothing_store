@@ -1,36 +1,49 @@
 {% extends 'main.html' %}
 {% block content %}
 
-
     <div id="content" class="site-content" tabindex="-1">
         <div class="col-full">
             <main class="site-main">
-                <ul class="products columns-5">
-                    {% for item in items %}
-                    <li class="product ">
-                        <a href="{{ item.link_kufar }}">
-                            <img style="width: 200px;height: 170px;" src="{{ item.photo.url }}">
-                            <h2 class="woocommerce-loop-product__title">{{ item.name }}</h2>
+                <ul id="denimRow" class="products columns-5">
 
-                            <span class="price">
-                                    <span class="woocommerce-Price-amount amount">
-                                    <bdi>
-                                        <span
-                                                class="woocommerce-Price-currencySymbol">
-                                        </span>ЦЕНА: {{ item.price }} BYN</bdi>
-                                    </span>
-                                </span>
-                        </a>
-                    </li>
-                    {% endfor %}
                 </ul>
             </main>
         </div>
     </div>
 
-<footer >
-  <p>جينز عالم كازاخ «🌍埃科有限公司🌍»</p>
-</footer>
+    <footer>
+        <p>جينز عالم كازاخ «🌍埃科有限公司🌍»</p>
+    </footer>
 
 
+    <script>
+        let itemContainer = document.getElementById('denimRow')
+        console.log(itemContainer)
+        let getItems = async () => {
+            let response = await fetch('http://127.0.0.1:8000/api/v1/denim/')
+            let items = await response.json()
+
+            for (let i = 0; items.length > i; i++) {
+                let item = items[i]
+                console.log(item)
+                let row = ` <li class="product ">
+                        <a href="${item.link_kufar}">
+                            <img style="width: 200px;height: 170px;" src='${item.first_photo}' onmouseover="this.src='${item.second_photo}';"
+                            onmouseout="this.src='${item.first_photo}';" >
+                            <h2 class="woocommerce-loop-product__title">${item.name}</h2>
+                            <span class="price">
+                                    <span class="woocommerce-Price-amount amount">
+                                    <bdi>
+                                        <span
+                                                class="woocommerce-Price-currencySymbol">
+                                        </span>ЦЕНА: ${item.price} BYN</bdi>
+                                    </span>
+                                </span>
+                        </a>
+                    </li>`
+                itemContainer.innerHTML += row
+            }
+        }
+        getItems()
+    </script>
 {% endblock content %}
